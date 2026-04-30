@@ -1,41 +1,58 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>인터넷활용 실습 템플릿</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taewoo Kim | Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<header>
-  <h1>Taewoo Kim</h1>
-  <p class="subtitle">Thank you for visiting my page.</p>
-</header>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="portfolio.html">Portfolio</a>
-  <a href="contact.html">Contact</a>
-</nav>
-<main class="container">
-<section>
-  <h2>Portfolio</h2>
-  <p>프로젝트/과제 목록을 간단 설명과 함께 적어 주세요.</p>
-  <ol>
-    <li>
-      <strong>프로젝트 제목: (여기에 추가)</strong><br>
-      설명: (여기에 추가) — <a href="(깃허브 또는 배포 링크)">링크</a>
-    </li>
-    <li>
-      <strong>프로젝트 제목: (여기에 추가)</strong><br>
-      설명: (여기에 추가) — <a href="(깃허브 또는 배포 링크)">링크</a>
-    </li>
-  </ol>
-</section>
-</main>
-<footer>
-  <small>&copy; <span id="year"></span> Taewoo Kim</small>
-</footer>
-<script src="script.js"></script>
+
+  <main class="page-layout">
+
+    <section class="page-title">
+      <h1>Taewoo Kim</h1>
+      <p>Software student interested in AI and engineering.</p>
+    </section>
+
+    <section class="portfolio-grid">
+
+      <article class="project-card">
+        <h2>Portfolio Website</h2>
+        <p>HTML, CSS, JavaScript 기반 개인 포트폴리오 사이트 제작</p>
+        <span>HTML · CSS · JS</span>
+      </article>
+
+      <article class="project-card">
+        <h2>C++ Practice</h2>
+        <p>객체지향 개념 및 클래스 설계 학습</p>
+        <span>C++ · OOP</span>
+      </article>
+
+      <article class="project-card">
+        <h2>AI Study</h2>
+        <p>임베딩, 신경망, 역전파 등 AI 개념 학습</p>
+        <span>AI · Python</span>
+      </article>
+
+    </section>
+
+  </main>
+
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html" class="active">Portfolio</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <footer>
+    <small>&copy; <span id="year"></span> Taewoo Kim</small>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
+
 </html>

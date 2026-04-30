@@ -1,42 +1,58 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>인터넷활용 실습 템플릿</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Taewoo Kim | Contact</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<header>
-  <h1>Taewoo Kim</h1>
-  <p class="subtitle">Thank you for visiting my page.</p>
-</header>
-<nav>
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="portfolio.html">Portfolio</a>
-  <a href="contact.html">Contact</a>
-</nav>
-<main class="container">
-<section>
-  <h2>Contact</h2>
-  <ul>
-    <li>이메일: xd2190@kw.ac.kr</li>
-    <li>GitHub: github.com/twk-kw</li>
-  </ul>
-  <!-- 아래는 정말 기본 예시 폼입니다. JS 없이도 동작하지 않아도 되며, 형태만 제공합니다. -->
-  <form class="contact-form" onsubmit="return false;">
-    <label>이름</label>
-    <input type="text" placeholder="이름을 입력하세요">
-    <label>메시지</label>
-    <textarea rows="4" placeholder="메시지를 입력하세요"></textarea>
-    <button type="submit">보내기 (동작X, 형태만)</button>
-  </form>
-</section>
-</main>
-<footer>
-  <small>&copy; <span id="year"></span> Taewoo Kim</small>
-</footer>
-<script src="script.js"></script>
+
+  <main class="page-layout">
+
+    <section class="page-title">
+      <h1>Taewoo Kim</h1>
+      <p>Software student interested in AI and engineering.</p>
+    </section>
+
+    <section class="info-card">
+      <h2>Contact</h2>
+
+      <ul>
+        <li><span>Email</span> xd2190@kw.ac.kr</li>
+        <li><span>GitHub</span> github.com/twk-kw</li>
+      </ul>
+
+      <form class="contact-form">
+        <label for="name">Name</label>
+        <input id="name" type="text" placeholder="이름을 입력하세요">
+
+        <label for="message">Message</label>
+        <textarea id="message" rows="5" placeholder="메시지를 입력하세요"></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+
+      <p id="form-message"></p>
+
+    </section>
+
+  </main>
+
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="contact.html" class="active">Contact</a>
+  </nav>
+
+  <footer>
+    <small>&copy; <span id="year"></span> Taewoo Kim</small>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
+
 </html>

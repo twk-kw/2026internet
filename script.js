@@ -1,5 +1,14 @@
-// 최소 스크립트: 푸터의 연도를 자동으로 표시합니다.
 (function () {
-  var y = document.getElementById('year');
-  if (y) { y.textContent = new Date().getFullYear(); }
+  const y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+
+  const form = document.querySelector(".contact-form");
+  const msg = document.getElementById("form-message");
+
+  if (form && msg) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      msg.textContent = "현재는 예시 폼입니다.";
+    });
+  }
 })();

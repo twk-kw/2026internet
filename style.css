@@ -1,91 +1,178 @@
-/* =============================================================
-   색상 테마는 "여기"에서 바꿉니다. (파랑 계열 기본)
-   원하는 색상 코드로 아래 4가지만 바꿔보세요.
-   ------------------------------------------------------------- */
 :root {
-  --primary: #1e5bb8;      /* 메인 포인트 색상 */
-  --primary-dark: #194c98; /* 호버/진한 포인트 */
-  --bg: #f7f9fc;           /* 전체 배경 색 */
-  --text: #222222;         /* 본문 글자 색 */
+  --bg: #0f0f0f;
+  --box-bg: #1a1a1a;
+  --box-bg-light: #202020;
+  --text: #f1f1f1;
+  --sub-text: #a8a8a8;
+  --line: #333;
+  --hover: #fff;
 }
-/* ============================================================= */
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", Arial, sans-serif;
+  min-height: 100vh;
+  padding-bottom: 100px;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.6;
+  font-family: system-ui, "Noto Sans KR", sans-serif;
 }
 
-header {
-  padding: 2rem 1rem;
-  text-align: center;
-  background: var(--primary);
-  color: #ffffff;
-}
-header .subtitle { margin-top: .25rem; opacity: .95; }
+/* ===== Layout ===== */
 
-nav {
-  background: var(--primary-dark);
+.page-layout {
   display: flex;
-  gap: 1rem;
-  padding: .75rem 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-nav a {
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 600;
-  padding: .25rem .5rem;
-}
-nav a:hover { text-decoration: underline; }
-
-.container {
-  max-width: 900px;
-  margin: 1.5rem auto;
-  padding: 1rem;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  flex-direction: column;
+  align-items: center;
+  padding: 70px 20px 40px;
+  text-align: center;
 }
 
-section { margin-bottom: 1rem; }
-h1, h2, h3 { margin: .2rem 0 .6rem; }
+/* ===== Title ===== */
 
-.contact-form {
+.page-title h1 {
+  margin: 0;
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  letter-spacing: 4px;
+  font-weight: 800;
+}
+
+.page-title p {
+  margin-top: 10px;
+  color: var(--sub-text);
+}
+
+/* ===== Cards ===== */
+
+.info-card {
+  width: min(760px, 92%);
+  background: var(--box-bg);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 24px 28px;
+  margin-top: 30px;
+  text-align: left;
+}
+
+.info-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info-card li {
+  padding: 8px 0;
+  border-top: 1px solid #2d2d2d;
+}
+
+.info-card span {
+  display: inline-block;
+  min-width: 120px;
+  color: var(--sub-text);
+}
+
+/* ===== Portfolio ===== */
+
+.portfolio-grid {
+  width: min(900px, 92%);
   display: grid;
-  grid-template-columns: 1fr;
-  gap: .5rem;
-  margin-top: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 30px;
 }
-input, textarea {
-  width: 100%;
-  padding: .6rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font: inherit;
+
+.project-card {
+  background: var(--box-bg);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 20px;
+  text-align: left;
 }
-button {
-  padding: .6rem .8rem;
-  border: none;
-  border-radius: 6px;
-  background: var(--primary);
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ===== Nav ===== */
+
+.main-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--box-bg-light);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 10px 16px;
+  display: flex;
+  gap: 30px;
+}
+
+.main-nav a {
+  color: var(--sub-text);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+}
+
+.main-nav a.active {
   color: #fff;
-  cursor: pointer;
-  font-weight: 600;
+  font-weight: 800;
 }
-button:hover { background: var(--primary-dark); }
+
+.main-nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+}
+
+/* ===== Form ===== */
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  background: #111;
+  border: 1px solid #444;
+  color: #fff;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: #fff;
+}
+
+button:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* ===== Footer ===== */
 
 footer {
   text-align: center;
-  padding: 2rem 1rem;
-  color: #666;
+  padding: 20px;
+  color: #777;
 }
 
-@media (max-width: 600px) {
-  header h1 { font-size: 1.25rem; }
-  .container { margin: 1rem; padding: .75rem; }
+/* ===== Responsive ===== */
+
+@media (max-width: 700px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .main-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
