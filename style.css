@@ -88,12 +88,38 @@ body {
   border: 1px solid var(--line);
   border-radius: 3px;
   padding: 20px;
+  min-height: 200px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
   text-align: left;
   transition: 0.2s;
 }
 
 .project-card:hover {
   transform: translateY(-5px);
+  border-color: #666;
+}
+
+.project-card h2 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.project-card p {
+  margin: 0;
+  color: var(--sub-text);
+  line-height: 1.7;
+}
+
+.project-card span {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--text);
+  font-size: 0.9rem;
 }
 
 /* ===== Nav ===== */
@@ -222,6 +248,10 @@ footer {
   .portfolio-grid {
     grid-template-columns: 1fr;
     width: 94%;
+  }
+
+  .project-card {
+    min-height: 180px;
   }
 
   .main-nav {
