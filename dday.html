@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>D-Day Calculator | Taewoo Kim</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="page-layout">
+
+        <section class="page-title">
+            <h1>Taewoo Kim</h1>
+            <p>Software student interested in AI and engineering.</p>
+        </section>
+
+        <section class="info-card">
+
+            <h2>D-Day Calculator</h2>
+            <p>
+                JavaScript의 Date 객체를 활용하여 목표 날짜까지 남은 일수를 계산하는 실습입니다.
+            </p>
+
+            <div id="dday-result"></div>
+
+            <script>
+                // 현재 날짜
+                let now = new Date();
+
+                // 사용자 입력
+                let year = prompt("목표 연도를 입력하세요 (예: 2025)", "2025");
+                let month = prompt("목표 월을 입력하세요 (1~12)", "12");
+                let day = prompt("목표 일을 입력하세요 (1~31)", "25");
+
+                // 결과 출력 영역
+                let result = document.getElementById("dday-result");
+
+                // 입력 취소 시
+                if (!year || !month || !day) {
+
+                    result.innerHTML = `
+          <h3>D-Day 계산을 취소했습니다.</h3>
+        `;
+
+                } else {
+
+                    // 목표 날짜 생성
+                    let targetDate = new Date(year, month - 1, day);
+
+                    // 날짜 차이 계산
+                    let diffMs = targetDate.getTime() - now.getTime();
+
+                    // 일 단위 변환
+                    let diffDay = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+                    // 출력 문자열
+                    let message = "";
+
+                    if (diffDay === 0) {
+                        message = "D-Day 입니다!";
+                    } else if (diffDay > 0) {
+                        message = `D-${diffDay}일 남았습니다.`;
+                    } else {
+                        message = `D+${Math.abs(diffDay)}일 지났습니다.`;
+                    }
+
+                    // HTML 출력
+                    result.innerHTML = `
+          <h3>목표 날짜</h3>
+          <p>${targetDate.toLocaleString()}</p>
+
+          <h3>${message}</h3>
+
+          <hr>
+
+          <p>오늘 날짜: ${now.toLocaleString()}</p>
+          <p><i>새로고침(F5)을 눌러 다시 계산할 수 있습니다.</i></p>
+        `;
+                }
+            </script>
+
+        </section>
+
+    </main>
+
+    <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="portfolio.html" class="active">Portfolio</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <footer>
+        <small>&copy; <span id="year"></span> Taewoo Kim</small>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
