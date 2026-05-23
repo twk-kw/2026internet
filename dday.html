@@ -9,81 +9,51 @@
 </head>
 
 <body>
-
     <main class="page-layout">
-
         <section class="page-title">
             <h1>Taewoo Kim</h1>
             <p>Software student interested in AI and engineering.</p>
         </section>
 
         <section class="info-card">
-
             <h2>D-Day Calculator</h2>
             <p>
-                JavaScript의 Date 객체를 활용하여 목표 날짜까지 남은 일수를 계산하는 실습입니다.
+                버튼을 눌러 목표 날짜를 조정하면 JavaScript의 Date 객체를 활용해 D-Day를 계산합니다.
             </p>
 
-            <div id="dday-result"></div>
+            <div class="dial-wrapper">
+                <div class="date-dial">
+                    <button type="button" class="dial-btn" data-type="year" data-action="plus">+</button>
+                    <strong id="year-value">2026</strong>
+                    <span>Year</span>
+                    <button type="button" class="dial-btn" data-type="year" data-action="minus">−</button>
+                </div>
 
-            <script>
-                // 현재 날짜
-                let now = new Date();
+                <div class="date-dial">
+                    <button type="button" class="dial-btn" data-type="month" data-action="plus">+</button>
+                    <strong id="month-value">9</strong>
+                    <span>Month</span>
+                    <button type="button" class="dial-btn" data-type="month" data-action="minus">−</button>
+                </div>
 
-                // 사용자 입력
-                let year = prompt("목표 연도를 입력하세요 (예: 2025)", "2025");
-                let month = prompt("목표 월을 입력하세요 (1~12)", "12");
-                let day = prompt("목표 일을 입력하세요 (1~31)", "25");
+                <div class="date-dial">
+                    <button type="button" class="dial-btn" data-type="day" data-action="plus">+</button>
+                    <strong id="day-value">12</strong>
+                    <span>Day</span>
+                    <button type="button" class="dial-btn" data-type="day" data-action="minus">−</button>
+                </div>
+            </div>
 
-                // 결과 출력 영역
-                let result = document.getElementById("dday-result");
+            <button type="button" id="calculate-btn" class="calculate-btn">
+                Calculate D-Day
+            </button>
 
-                // 입력 취소 시
-                if (!year || !month || !day) {
-
-                    result.innerHTML = `
-          <h3>D-Day 계산을 취소했습니다.</h3>
-        `;
-
-                } else {
-
-                    // 목표 날짜 생성
-                    let targetDate = new Date(year, month - 1, day);
-
-                    // 날짜 차이 계산
-                    let diffMs = targetDate.getTime() - now.getTime();
-
-                    // 일 단위 변환
-                    let diffDay = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-
-                    // 출력 문자열
-                    let message = "";
-
-                    if (diffDay === 0) {
-                        message = "D-Day 입니다!";
-                    } else if (diffDay > 0) {
-                        message = `D-${diffDay}일 남았습니다.`;
-                    } else {
-                        message = `D+${Math.abs(diffDay)}일 지났습니다.`;
-                    }
-
-                    // HTML 출력
-                    result.innerHTML = `
-          <h3>목표 날짜</h3>
-          <p>${targetDate.toLocaleString()}</p>
-
-          <h3>${message}</h3>
-
-          <hr>
-
-          <p>오늘 날짜: ${now.toLocaleString()}</p>
-          <p><i>새로고침(F5)을 눌러 다시 계산할 수 있습니다.</i></p>
-        `;
-                }
-            </script>
-
+            <div id="dday-result" class="dday-result">
+                <div class="result-box muted">
+                    <p>연도, 월, 일을 조정한 뒤 계산 버튼을 눌러주세요.</p>
+                </div>
+            </div>
         </section>
-
     </main>
 
     <nav class="main-nav">
@@ -96,6 +66,102 @@
     <footer>
         <small>&copy; <span id="year"></span> Taewoo Kim</small>
     </footer>
+
+    <script>
+        let selectedYear = 2026;
+        let selectedMonth = 9;
+        let selectedDay = 12;
+
+        const yearValue = document.getElementById("year-value");
+        const monthValue = document.getElementById("month-value");
+        const dayValue = document.getElementById("day-value");
+        const result = document.getElementById("dday-result");
+
+        function getLastDay(year, month) {
+            return new Date(year, month, 0).getDate();
+        }
+
+        function updateDisplay() {
+            const lastDay = getLastDay(selectedYear, selectedMonth);
+
+            if (selectedDay > lastDay) {
+                selectedDay = lastDay;
+            }
+
+            yearValue.textContent = selectedYear;
+            monthValue.textContent = selectedMonth;
+            dayValue.textContent = selectedDay;
+        }
+
+        document.querySelectorAll(".dial-btn").forEach(function (button) {
+            button.addEventListener("click", function () {
+                const type = button.dataset.type;
+                const action = button.dataset.action;
+                const change = action === "plus" ? 1 : -1;
+
+                if (type === "year") {
+                    selectedYear += change;
+                    if (selectedYear < 1900) selectedYear = 1900;
+                }
+
+                if (type === "month") {
+                    selectedMonth += change;
+
+                    if (selectedMonth > 12) {
+                        selectedMonth = 1;
+                        selectedYear++;
+                    }
+
+                    if (selectedMonth < 1) {
+                        selectedMonth = 12;
+                        selectedYear--;
+                    }
+                }
+
+                if (type === "day") {
+                    selectedDay += change;
+                    const lastDay = getLastDay(selectedYear, selectedMonth);
+
+                    if (selectedDay > lastDay) selectedDay = 1;
+                    if (selectedDay < 1) selectedDay = lastDay;
+                }
+
+                updateDisplay();
+            });
+        });
+
+        document.getElementById("calculate-btn").addEventListener("click", function () {
+            const now = new Date();
+            const targetDate = new Date(selectedYear, selectedMonth - 1, selectedDay);
+
+            const diffMs = targetDate.getTime() - now.getTime();
+            const diffDay = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+            let message = "";
+
+            if (diffDay === 0) {
+                message = "D-Day 입니다!";
+            } else if (diffDay > 0) {
+                message = `D-${diffDay}일 남았습니다.`;
+            } else {
+                message = `D+${Math.abs(diffDay)}일 지났습니다.`;
+            }
+
+            result.innerHTML = `
+        <div class="result-box">
+          <span class="result-label">Result</span>
+          <h3>${message}</h3>
+
+          <div class="date-info">
+            <p><span>Target</span>${targetDate.toLocaleDateString()}</p>
+            <p><span>Today</span>${now.toLocaleDateString()}</p>
+          </div>
+        </div>
+      `;
+        });
+
+        updateDisplay();
+    </script>
 
     <script src="script.js"></script>
 </body>
