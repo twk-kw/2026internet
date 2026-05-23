@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Picker | Taewoo Kim</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="page-layout">
+    <section class="page-title">
+      <h1>Taewoo Kim</h1>
+      <p>Software student interested in AI and engineering.</p>
+    </section>
+
+    <section class="info-card">
+      <h2>Random Picker</h2>
+      <p>
+        문자열을 콤마로 구분해 입력하면 JavaScript의 String, Array, Math 객체를 활용해
+        하나의 항목을 무작위로 선택합니다.
+      </p>
+
+      <div class="random-form">
+        <label for="random-input">Items</label>
+        <textarea id="random-input" rows="5">제육볶음,돈까스,순대국,김치찌개,햄버거,초밥,파스타,샐러드,떡볶이,마라탕,사과,바나나,딸기,수박</textarea>
+
+        <button type="button" id="pick-btn" class="calculate-btn">
+          Pick Random
+        </button>
+      </div>
+
+      <div id="random-result" class="dday-result">
+        <div class="result-box muted">
+          <p>항목을 콤마로 구분해 입력한 뒤 버튼을 눌러주세요.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html" class="active">Portfolio</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <footer>
+    <small>&copy; <span id="year"></span> Taewoo Kim</small>
+  </footer>
+
+  <script>
+    const input = document.getElementById("random-input");
+    const pickBtn = document.getElementById("pick-btn");
+    const result = document.getElementById("random-result");
+
+    pickBtn.addEventListener("click", function () {
+      const inputString = input.value;
+
+      if (!inputString.trim()) {
+        result.innerHTML = `
+          <div class="result-box">
+            <h3>항목이 없습니다.</h3>
+            <p>콤마로 구분된 항목을 입력해주세요.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const items = inputString
+        .split(",")
+        .map(function (item) {
+          return item.trim();
+        })
+        .filter(function (item) {
+          return item !== "";
+        });
+
+      if (items.length === 0) {
+        result.innerHTML = `
+          <div class="result-box">
+            <h3>선택할 항목이 없습니다.</h3>
+            <p>올바른 항목을 입력해주세요.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const index = Math.floor(Math.random() * items.length);
+      const choice = items[index];
+
+      result.innerHTML = `
+        <div class="result-box">
+          <span class="result-label">Result</span>
+          <h3>${choice}</h3>
+
+          <div class="date-info">
+            <p><span>Total</span>${items.length}개 항목</p>
+            <p><span>Index</span>${index}</p>
+          </div>
+        </div>
+      `;
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
