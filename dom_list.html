@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comment Manager | Taewoo Kim</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="page-layout">
+        <section class="page-title">
+            <h1>Taewoo Kim</h1>
+            <p>Software student interested in AI and engineering.</p>
+        </section>
+
+        <section class="info-card">
+            <h2>Comment Manager</h2>
+
+            <p>
+                텍스트박스를 통해 댓글을 추가하고, 삭제 버튼을 눌러 DOM에서 댓글 요소를 제거하는 프로젝트입니다.
+            </p>
+
+            <div class="comment-form">
+                <label for="comment-input">Comment</label>
+
+                <textarea id="comment-input" rows="4" placeholder="댓글을 입력하세요"></textarea>
+
+                <button type="button" id="add-comment-btn">
+                    Add Comment
+                </button>
+            </div>
+
+            <ul id="comment-list" class="comment-list">
+                <li class="comment-item">
+                    <div class="comment-text">
+                        예시 댓글입니다. 삭제 버튼을 눌러 제거할 수 있습니다.
+                    </div>
+
+                    <button type="button" class="delete-comment-btn">
+                        Delete
+                    </button>
+                </li>
+            </ul>
+        </section>
+    </main>
+
+    <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="portfolio.html" class="active">Portfolio</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <footer>
+        <small>&copy; <span id="year"></span> Taewoo Kim</small>
+    </footer>
+
+    <script>
+        const commentInput = document.getElementById("comment-input");
+        const addCommentBtn = document.getElementById("add-comment-btn");
+        const commentList = document.getElementById("comment-list");
+
+        function createComment(text) {
+            const newLi = document.createElement("li");
+            newLi.className = "comment-item";
+
+            const commentText = document.createElement("div");
+            commentText.className = "comment-text";
+            commentText.textContent = text;
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.type = "button";
+            deleteBtn.className = "delete-comment-btn";
+            deleteBtn.textContent = "Delete";
+
+            deleteBtn.addEventListener("click", function () {
+                commentList.removeChild(newLi);
+            });
+
+            newLi.appendChild(commentText);
+            newLi.appendChild(deleteBtn);
+
+            commentList.appendChild(newLi);
+        }
+
+        addCommentBtn.addEventListener("click", function () {
+            const text = commentInput.value.trim();
+
+            if (text === "") {
+                alert("댓글 내용을 입력해주세요.");
+                return;
+            }
+
+            createComment(text);
+
+            commentInput.value = "";
+            commentInput.focus();
+        });
+
+        document.querySelectorAll(".delete-comment-btn").forEach(function (button) {
+            button.addEventListener("click", function () {
+                const item = button.parentElement;
+                commentList.removeChild(item);
+            });
+        });
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
