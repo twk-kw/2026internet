@@ -181,8 +181,6 @@ body {
   color: #ffffff;
 }
 
-/* D-Day */
-
 .dial-wrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -223,25 +221,117 @@ body {
   margin-top: 4px;
 }
 
-/* Random Picker */
-
-.random-form {
+.random-form,
+.comment-form {
   display: grid;
   gap: 12px;
   margin: 26px 0 0;
 }
 
-.random-form label {
+.random-form label,
+.comment-form label {
   color: var(--sub-text);
   font-weight: 600;
 }
 
-.random-form textarea {
+.random-form textarea,
+.comment-form textarea {
   min-height: 130px;
   resize: vertical;
 }
 
-/* Result */
+.dom-demo-box {
+  margin-top: 26px;
+}
+
+.dom-target {
+  margin: 0 0 20px;
+  padding: 24px;
+  background: #101010;
+  border: 1px solid #2f2f2f;
+  border-radius: 3px;
+  color: var(--sub-text);
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.dom-button-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+/* ===== Comment Manager ===== */
+
+.comment-list {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+  display: grid;
+  gap: 12px;
+}
+
+.comment-item {
+  background: #101010;
+
+  border: 1px solid #2f2f2f;
+  border-radius: 3px;
+
+  padding: 18px 20px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+}
+
+.comment-text {
+  flex: 1;
+
+  padding: 10px 14px;
+
+  background: #151515;
+
+  border: 1px solid #262626;
+  border-radius: 3px;
+
+  color: var(--text);
+
+  line-height: 1.8;
+
+  word-break: break-word;
+}
+
+.comment-item span {
+  display: block;
+
+  margin: 0;
+
+  color: var(--text);
+
+  line-height: 1.8;
+
+  word-break: break-word;
+}
+
+.delete-comment-btn {
+  margin: 0 6px 0 2px;
+
+  padding: 10px 14px;
+
+  flex-shrink: 0;
+
+  border-color: #555;
+
+  color: #ddd;
+}
+
+.delete-comment-btn:hover {
+  background: #ffffff;
+  color: #000000;
+}
 
 .dday-result {
   margin-top: 22px;
@@ -303,6 +393,7 @@ body {
   background: rgba(32, 32, 32, 0.95);
   border: 1px solid var(--line);
   border-radius: 3px;
+
   padding: 10px 16px;
 
   display: flex;
@@ -311,7 +402,9 @@ body {
 
   overflow-x: auto;
   white-space: nowrap;
+
   backdrop-filter: blur(10px);
+
   scrollbar-width: none;
 }
 
@@ -430,6 +523,22 @@ footer {
   .date-dial strong,
   .result-box h3 {
     font-size: 1.6rem;
+  }
+
+  .dom-button-group {
+    grid-template-columns: 1fr;
+  }
+
+  .comment-item {
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 20px 24px;
+  }
+
+  .delete-comment-btn {
+    width: 100%;
+    margin: 0;
   }
 
   .main-nav {
