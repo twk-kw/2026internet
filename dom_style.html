@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Style Controller | Taewoo Kim</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="page-layout">
+        <section class="page-title">
+            <h1>Taewoo Kim</h1>
+            <p>Software student interested in AI and engineering.</p>
+        </section>
+
+        <section class="info-card">
+            <h2>DOM Style Controller</h2>
+            <p>
+                JavaScript의 DOM 접근 방식을 활용하여 HTML 요소의 글자색, 글자 크기,
+                배경색, 표시 상태를 직접 변경하는 실습 프로젝트입니다.
+            </p>
+
+            <div class="dom-demo-box">
+                <p id="target" class="dom-target">
+                    이 문장의 스타일을 바꿔보세요.
+                </p>
+
+                <div class="dom-button-group">
+                    <button type="button" onclick="changeColor()">글자색 변경</button>
+                    <button type="button" onclick="changeSize()">크게 보기</button>
+                    <button type="button" onclick="changeBackground()">배경 강조</button>
+                    <button type="button" onclick="toggleVisibility()">숨기기 / 보이기</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="portfolio.html" class="active">Portfolio</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <footer>
+        <small>&copy; <span id="year"></span> Taewoo Kim</small>
+    </footer>
+
+    <script>
+        function changeColor() {
+            var obj = document.getElementById("target");
+            obj.style.color = "#ffffff";
+        }
+
+        function changeSize() {
+            var obj = document.getElementById("target");
+            obj.style.fontSize = "32px";
+        }
+
+        function changeBackground() {
+            var obj = document.getElementById("target");
+            obj.style.backgroundColor = "#3a3a3a";
+        }
+
+        function toggleVisibility() {
+            var obj = document.getElementById("target");
+
+            if (obj.style.display === "none") {
+                obj.style.display = "block";
+            } else {
+                obj.style.display = "none";
+            }
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
