@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Order Form | Taewoo Kim</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="page-layout">
+
+        <section class="page-title">
+            <h1>Taewoo Kim</h1>
+            <p>Software student interested in AI and engineering.</p>
+        </section>
+
+        <section class="info-card">
+            <h2>Event Order Form</h2>
+
+            <p>
+                체크박스, 수량 입력, 주소 입력, 제출 이벤트를 활용하여 주문 금액을 자동 계산하고
+                입력값을 검증하는 이벤트 기반 주문 폼 프로젝트입니다.
+            </p>
+
+            <form class="event-order-form" onsubmit="return validateOrder(event)">
+
+                <div class="order-menu-box">
+                    <h3>Menu</h3>
+
+                    <div class="order-menu-item">
+                        <label>
+                            <input type="checkbox" class="menu-check" value="15000">
+                            <span>콤비네이션 피자</span>
+                        </label>
+
+                        <strong>15,000원</strong>
+
+                        <div class="qty-controller">
+                            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">
+                                −
+                            </button>
+
+                            <input type="text" class="menu-qty" value="1" readonly>
+
+                            <button type="button" class="qty-btn" onclick="changeQty(this,1)">
+                                +
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="order-menu-item">
+                        <label>
+                            <input type="checkbox" class="menu-check" value="12000">
+                            <span>페퍼로니 피자</span>
+                        </label>
+
+                        <strong>12,000원</strong>
+
+                        <div class="qty-controller">
+                            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">
+                                −
+                            </button>
+
+                            <input type="text" class="menu-qty" value="1" readonly>
+
+                            <button type="button" class="qty-btn" onclick="changeQty(this,1)">
+                                +
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="order-menu-item">
+                        <label>
+                            <input type="checkbox" class="menu-check" value="2000">
+                            <span>치즈 토핑 추가</span>
+                        </label>
+
+                        <strong>2,000원</strong>
+
+                        <div class="qty-controller">
+                            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">
+                                −
+                            </button>
+
+                            <input type="text" class="menu-qty" value="1" readonly>
+
+                            <button type="button" class="qty-btn" onclick="changeQty(this,1)">
+                                +
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="order-menu-item">
+                        <label>
+                            <input type="checkbox" class="menu-check" value="1500">
+                            <span>콜라 1.25L</span>
+                        </label>
+
+                        <strong>1,500원</strong>
+
+                        <div class="qty-controller">
+                            <button type="button" class="qty-btn" onclick="changeQty(this,-1)">
+                                −
+                            </button>
+
+                            <input type="text" class="menu-qty" value="1" readonly>
+
+                            <button type="button" class="qty-btn" onclick="changeQty(this,1)">
+                                +
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-address-box">
+                    <label for="addr">Delivery Address</label>
+                    <input type="text" id="addr" placeholder="주소를 입력하세요">
+                </div>
+
+                <div class="order-total-box">
+                    <span>Total</span>
+                    <strong><input type="text" id="total" value="0" readonly> 원</strong>
+                </div>
+
+                <div class="order-button-group">
+                    <button type="submit">Order Now</button>
+                    <button type="reset" id="reset-btn">Reset</button>
+                </div>
+
+            </form>
+
+            <div id="order-message" class="dday-result">
+                <div class="result-box muted">
+                    <p>메뉴를 선택하면 주문 합계가 자동으로 계산됩니다.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="portfolio.html" class="active">Portfolio</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <footer>
+        <small>&copy; <span id="year"></span> Taewoo Kim</small>
+    </footer>
+
+    <script>
+        const checks = document.getElementsByClassName("menu-check");
+        const qtys = document.getElementsByClassName("menu-qty");
+        const totalInput = document.getElementById("total");
+        const addressInput = document.getElementById("addr");
+        const orderMessage = document.getElementById("order-message");
+        const resetBtn = document.getElementById("reset-btn");
+
+        function recalc() {
+            let total = 0;
+
+            for (let i = 0; i < checks.length; i++) {
+                if (checks[i].checked) {
+                    const price = parseInt(checks[i].value);
+                    let quantity = parseInt(qtys[i].value);
+
+                    if (isNaN(quantity) || quantity < 1) {
+                        quantity = 1;
+                        qtys[i].value = 1;
+                    }
+
+                    total += price * quantity;
+                }
+            }
+
+            totalInput.value = total;
+        }
+
+        function changeQty(button, amount) {
+
+            const controller =
+                button.parentElement;
+
+            const input =
+                controller.querySelector(".menu-qty");
+
+            let value =
+                parseInt(input.value);
+
+            value += amount;
+
+            if (value < 1) {
+                value = 1;
+            }
+
+            input.value = value;
+
+            recalc();
+        }
+
+        function checkAddress() {
+            if (addressInput.value.trim() === "") {
+                orderMessage.innerHTML = `
+          <div class="result-box">
+            <span class="result-label">Notice</span>
+            <h3>주소를 입력해주세요.</h3>
+            <p>배달 받을 주소가 비어 있습니다.</p>
+          </div>
+        `;
+
+                addressInput.focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        function validateOrder(event) {
+            event.preventDefault();
+
+            const total = parseInt(totalInput.value);
+
+            if (total === 0) {
+                orderMessage.innerHTML = `
+          <div class="result-box">
+            <span class="result-label">Notice</span>
+            <h3>상품을 선택해주세요.</h3>
+            <p>적어도 하나의 메뉴를 선택해야 주문할 수 있습니다.</p>
+          </div>
+        `;
+
+                return false;
+            }
+
+            if (!checkAddress()) {
+                return false;
+            }
+
+            orderMessage.innerHTML = `
+        <div class="result-box">
+          <span class="result-label">Order Complete</span>
+          <h3>주문이 완료되었습니다.</h3>
+
+          <div class="date-info">
+            <p><span>Total</span>${total.toLocaleString()}원</p>
+            <p><span>Address</span>${addressInput.value}</p>
+          </div>
+        </div>
+      `;
+
+            return false;
+        }
+
+        for (let i = 0; i < checks.length; i++) {
+            checks[i].addEventListener("change", recalc);
+            qtys[i].addEventListener("change", recalc);
+            qtys[i].addEventListener("keyup", recalc);
+        }
+
+        addressInput.addEventListener("blur", function () {
+            if (addressInput.value.trim() !== "") {
+                orderMessage.innerHTML = `
+          <div class="result-box muted">
+            <p>주소가 입력되었습니다. 메뉴를 확인한 뒤 주문할 수 있습니다.</p>
+          </div>
+        `;
+            }
+        });
+
+        resetBtn.addEventListener("click", function () {
+            setTimeout(function () {
+                recalc();
+
+                orderMessage.innerHTML = `
+          <div class="result-box muted">
+            <p>메뉴를 선택하면 주문 합계가 자동으로 계산됩니다.</p>
+          </div>
+        `;
+            }, 0);
+        });
+    </script>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

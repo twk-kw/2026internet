@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Car Controller | Taewoo Kim</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="page-layout">
+
+        <section class="page-title">
+            <h1>Taewoo Kim</h1>
+            <p>Software student interested in AI and engineering.</p>
+        </section>
+
+        <section class="info-card">
+            <h2>Event Car Controller</h2>
+
+            <p>
+                키보드 방향키 이벤트를 활용하여 자동차 블록을 이동시키는 프로젝트입니다.
+                자동차는 아래 주행 영역 안에서만 움직일 수 있도록 제한했습니다.
+            </p>
+
+            <div class="car-stage" id="car-stage" tabindex="0">
+                <div id="car" class="car-object">CAR</div>
+            </div>
+
+            <div class="car-info-box">
+                <p id="car-info">현재 좌표 (x, y) = (100, 100)</p>
+                <p>방향키(←, ↑, →, ↓)를 눌러 자동차를 조종하세요. 주행 영역을 클릭한 뒤 조작하면 더 안정적으로 작동합니다.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="portfolio.html" class="active">Portfolio</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <footer>
+        <small>&copy; <span id="year"></span> Taewoo Kim</small>
+    </footer>
+
+    <script>
+        let x = 100;
+        let y = 100;
+        const step = 10;
+
+        const stage = document.getElementById("car-stage");
+        const car = document.getElementById("car");
+        const info = document.getElementById("car-info");
+
+        function updateCarPosition() {
+            car.style.left = x + "px";
+            car.style.top = y + "px";
+            info.textContent = "현재 좌표 (x, y) = (" + x + ", " + y + ")";
+        }
+
+        function moveCar(event) {
+            const stageWidth = stage.clientWidth;
+            const stageHeight = stage.clientHeight;
+            const carWidth = car.offsetWidth;
+            const carHeight = car.offsetHeight;
+
+            let nextX = x;
+            let nextY = y;
+
+            if (event.key === "ArrowLeft") {
+                nextX -= step;
+            } else if (event.key === "ArrowUp") {
+                nextY -= step;
+            } else if (event.key === "ArrowRight") {
+                nextX += step;
+            } else if (event.key === "ArrowDown") {
+                nextY += step;
+            } else {
+                return;
+            }
+
+            event.preventDefault();
+
+            if (nextX < 0) {
+                nextX = 0;
+            }
+
+            if (nextY < 0) {
+                nextY = 0;
+            }
+
+            if (nextX > stageWidth - carWidth) {
+                nextX = stageWidth - carWidth;
+            }
+
+            if (nextY > stageHeight - carHeight) {
+                nextY = stageHeight - carHeight;
+            }
+
+            x = nextX;
+            y = nextY;
+
+            updateCarPosition();
+        }
+
+        stage.addEventListener("keydown", moveCar);
+
+        stage.addEventListener("click", function () {
+            stage.focus();
+        });
+
+        window.addEventListener("load", function () {
+            stage.focus();
+            updateCarPosition();
+        });
+
+        window.addEventListener("resize", function () {
+            const stageWidth = stage.clientWidth;
+            const stageHeight = stage.clientHeight;
+            const carWidth = car.offsetWidth;
+            const carHeight = car.offsetHeight;
+
+            if (x > stageWidth - carWidth) {
+                x = stageWidth - carWidth;
+            }
+
+            if (y > stageHeight - carHeight) {
+                y = stageHeight - carHeight;
+            }
+
+            if (x < 0) {
+                x = 0;
+            }
+
+            if (y < 0) {
+                y = 0;
+            }
+
+            updateCarPosition();
+        });
+    </script>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
